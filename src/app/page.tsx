@@ -1,37 +1,124 @@
-import Link from "next/link";
+"use client";
+import { QRCodeSVG } from "qrcode.react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { qrSchema } from "./schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+interface QRCode {
+  hidden: boolean;
+  content: string;
+  error: string;
+  version?: number;
+}
 
 export default function HomePage() {
+  const [qr, setQr] = useState({
+    hidden: true,
+    content: "",
+    error: "L",
+  } as QRCode);
+
+  const form = useForm<z.infer<typeof qrSchema>>({
+    resolver: zodResolver(qrSchema),
+    defaultValues: {
+      content: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof qrSchema>) {
+    setQr({
+      hidden: false,
+      content: values.content,
+      error: values.error,
+    });
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
+    <div className="m-4 text-lg">
+      <h1 className="mb-3 text-4xl font-bold">Qr Generator</h1>
+      <main className="flex min-h-screen flex-col space-y-4">
+        <Form {...form}>
+          <form
+            className="max-w-80 space-y-1"
+            onSubmit={form.handleSubmit(onSubmit)}
           >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
-        </div>
-      </div>
-    </main>
+            <FormField
+              control={form.control}
+              name="content"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Content</FormLabel>
+                  <FormControl>
+                    <Input placeholder="magic" {...field} />
+                  </FormControl>
+                  <FormDescription>The content of the qr code</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="error"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Error Correction</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Low (default)" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="L">Low (default)</SelectItem>
+                      <SelectItem value="M">Medium</SelectItem>
+                      <SelectItem value="Q">Quartile</SelectItem>
+                      <SelectItem value="H">High</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    The level of error correction
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button className="mt-1" type="submit">
+              Generate
+            </Button>
+          </form>
+        </Form>
+        <QRCodeSVG
+          className={qr.hidden ? "hidden" : ""}
+          value={qr.content}
+          minVersion={qr.version !== undefined ? qr.version : 1}
+          level={(qr.error as "L", "M", "Q", "H")}
+          marginSize={2}
+          size={256}
+        />
+      </main>
+    </div>
   );
 }
