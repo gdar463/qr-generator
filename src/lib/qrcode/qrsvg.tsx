@@ -1,5 +1,5 @@
 "use client";
-import { makeBaseForm } from "./drawVLine";
+import { makeBaseForm } from "./base";
 import { drawBits } from "./draw";
 
 interface QRProps {
