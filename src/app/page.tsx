@@ -110,14 +110,17 @@ export default function HomePage() {
             </Button>
           </form>
         </Form>
-        <QRCodeSVG
-          className={qr.hidden ? "hidden" : ""}
-          value={qr.content}
-          minVersion={qr.version !== undefined ? qr.version : 1}
-          level={(qr.error as "L", "M", "Q", "H")}
-          marginSize={2}
-          size={256}
-        />
+        {qr.hidden ? (
+          ""
+        ) : (
+          <QRCodeSVG
+            value={qr.content}
+            minVersion={qr.version !== undefined ? qr.version : 1}
+            level={(qr.error as "L", "M", "Q", "H")}
+            marginSize={2}
+            size={256}
+          />
+        )}
       </main>
     </div>
   );
