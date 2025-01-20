@@ -1,7 +1,7 @@
 "use client";
 import { QRCodeSVG } from "qrcode.react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import type { z } from "zod";
 import { qrSchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -115,7 +115,7 @@ export default function HomePage() {
         ) : (
           <QRCodeSVG
             value={qr.content}
-            minVersion={qr.version !== undefined ? qr.version : 1}
+            minVersion={qr.version ?? 1}
             level={(qr.error as "L", "M", "Q", "H")}
             marginSize={2}
             size={256}

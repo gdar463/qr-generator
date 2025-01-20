@@ -2,7 +2,7 @@
 import { OLD_FIXED_ARRAY_QrCode } from "@/lib/OLD_FIXED_ARRAY_QrCode";
 import QRCode from "@/lib/qrcode/qrsvg";
 import QRCode_V0_1_FIXED_ALIGNMENT from "@/lib/qrcode_v0.1/qrsvg";
-import { HistoryQrCode } from "./page";
+import type { HistoryQrCode } from "./page";
 
 export default function QRVersion({ qr }: { qr: HistoryQrCode }) {
   switch (qr.version) {

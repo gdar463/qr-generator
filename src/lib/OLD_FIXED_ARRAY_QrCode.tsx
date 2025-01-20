@@ -1,5 +1,5 @@
 export function OLD_FIXED_ARRAY_QrCode({ size }: { size?: number }) {
-  let bits: boolean[][] = [
+  const bits: boolean[][] = [
     [false, false, false, true],
     [false, false, true, true],
     [false, false, false, false],

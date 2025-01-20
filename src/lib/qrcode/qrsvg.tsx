@@ -11,7 +11,7 @@ interface QRProps {
 export default function QRCode({ imgSize, version, margin }: QRProps) {
   // 0-indexed
   const size = 4 * (version ?? 1) + 17 + (margin ?? 0) * 2 - 1;
-  let bits = Array.from({ length: size + 1 }, () =>
+  let bits: boolean[][] = Array.from({ length: size + 1 }, () =>
     Array(size + 1).fill(false),
   );
   const base = makeBaseForm(size, margin ?? 0, bits);
