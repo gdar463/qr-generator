@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/select";
 import QRCode from "@/lib/qrcode/qrsvg";
 
-interface QRCode {
+interface QRCodeType {
   hidden: boolean;
   content: string;
   error: string;
@@ -36,7 +36,7 @@ export default function HomePage() {
     hidden: true,
     content: "",
     error: "L",
-  } as QRCode);
+  } as QRCodeType);
 
   const form = useForm<z.infer<typeof qrSchema>>({
     resolver: zodResolver(qrSchema),
