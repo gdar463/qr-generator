@@ -14,7 +14,7 @@ export default function QRCode({ imgSize, version, margin }: QRProps) {
   let bits: boolean[][] = Array.from({ length: size + 1 }, (): boolean[] =>
     Array<boolean>(size + 1).fill(false),
   );
-  const base = makeBaseForm(size, margin ?? 0, bits);
+  const base = makeBaseForm(bits, size, margin ?? 0, version ?? 1);
   const { viewport, bg } = base;
   bits = base.bits;
   const dPath = drawBits(bits);
