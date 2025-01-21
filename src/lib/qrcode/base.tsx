@@ -24,8 +24,7 @@ function drawAlignmentPattern(
   version: number,
 ) {
   const coords = getCoords(version, margin);
-  for (let i = 0; i < coords.length; i++) {
-    const { x, y } = coords[i]!;
+  for (const { x, y } of coords) {
     if (
       !(x < margin + 8 && y < margin + 8) &&
       !(x + 5 > size - margin - 8 && y < margin + 8) &&
@@ -35,7 +34,7 @@ function drawAlignmentPattern(
         bits[y + j]!.fill(true, x, x + 5);
         bits = drawVLine(bits, true, x + j, y + 1, y + 4);
       }
-      bits[y + 2]![x + 2]! = true;
+      bits[y + 2]![x + 2] = true;
     }
   }
   return bits;

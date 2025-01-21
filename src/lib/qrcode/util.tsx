@@ -25,7 +25,7 @@ export function drawSquare(
 
 export function getCoords(version: number, margin: number) {
   const points = table[version - 2]!;
-  let coords: { x: number; y: number }[] = [];
+  const coords: { x: number; y: number }[] = [];
   points.forEach((value, index, arr) => {
     for (let i = index; i < arr.length; i++) {
       coords.push({ x: value + margin - 2, y: arr[i]! + margin - 2 });
