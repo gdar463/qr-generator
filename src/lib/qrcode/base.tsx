@@ -19,17 +19,24 @@ function drawLocatorEyes(bits: boolean[][], size: number, margin: number) {
 
 function drawAlignmentPattern(
   bits: boolean[][],
+  size: number,
   margin: number,
   version: number,
 ) {
   const coords = getCoords(version, margin);
   for (let i = 0; i < coords.length; i++) {
     const { x, y } = coords[i]!;
-    for (let j = 0; j < 5; j += 4) {
-      bits[y + j]!.fill(true, x, x + 5);
-      bits = drawVLine(bits, true, x + j, y + 1, y + 4);
+    if (
+      !(x < margin + 8 && y < margin + 8) &&
+      !(x + 5 > size - margin - 8 && y < margin + 8) &&
+      !(x < margin + 8 && y + 5 > size - margin - 8)
+    ) {
+      for (let j = 0; j < 5; j += 4) {
+        bits[y + j]!.fill(true, x, x + 5);
+        bits = drawVLine(bits, true, x + j, y + 1, y + 4);
+      }
+      bits[y + 2]![x + 2]! = true;
     }
-    bits[y + 2]![x + 2]! = true;
   }
   return bits;
 }
@@ -44,7 +51,7 @@ export function makeBaseForm(
   const bg = `M0,0h${size}v${size}h-${size}z`;
   bits = drawLocatorEyes(bits, size, margin);
   if (version >= 2) {
-    bits = drawAlignmentPattern(bits, margin, version);
+    bits = drawAlignmentPattern(bits, size, margin, version);
   }
   return { viewport, bg, bits };
 }
