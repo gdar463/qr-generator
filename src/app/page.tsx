@@ -1,5 +1,4 @@
 "use client";
-import { QRCodeSVG } from "qrcode.react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import { qrSchema } from "./schema";
@@ -23,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import QRCode from "@/lib/qrcode/qrsvg";
 
 interface QRCode {
   hidden: boolean;
@@ -113,13 +113,7 @@ export default function HomePage() {
         {qr.hidden ? (
           ""
         ) : (
-          <QRCodeSVG
-            value={qr.content}
-            minVersion={qr.version ?? 1}
-            level={(qr.error as "L", "M", "Q", "H")}
-            marginSize={2}
-            size={256}
-          />
+          <QRCode version={qr.version ?? 1} margin={2} imgSize={256} />
         )}
       </main>
     </div>
