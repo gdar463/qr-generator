@@ -1,6 +1,5 @@
 "use client";
-import { makeBaseForm } from "./base";
-import { drawBits } from "./draw";
+import QR from "./qr";
 
 interface QRProps {
   imgSize?: number;
@@ -9,15 +8,9 @@ interface QRProps {
 }
 
 export default function QRCode({ imgSize, version, margin }: QRProps) {
-  // 0-indexed
-  const size = 4 * (version ?? 1) + 17 + (margin ?? 0) * 2 - 1;
-  let bits: boolean[][] = Array.from({ length: size + 1 }, (): boolean[] =>
-    Array<boolean>(size + 1).fill(false),
-  );
-  const base = makeBaseForm(bits, size, margin ?? 0, version ?? 1);
-  const { viewport, bg } = base;
-  bits = base.bits;
-  const dPath = drawBits(bits);
+  const qr = new QR(version ?? 1, margin ?? 0);
+  const { viewport, bg } = qr.makeBaseForm();
+  const dPath = qr.drawBits();
 
   return (
     <svg
