@@ -1,6 +1,7 @@
+import { Draw } from "./draw";
 import { getCoords } from "./util";
 
-export default class QR {
+export default class QR extends Draw {
   version: number;
   margin: number;
   // 0-indexed
@@ -8,6 +9,7 @@ export default class QR {
   bits: boolean[][];
 
   constructor(version: number, margin: number) {
+    super();
     this.version = version;
     this.margin = margin;
     this.size = 4 * (version ?? 1) + 17 + (margin ?? 0) * 2 - 1;
