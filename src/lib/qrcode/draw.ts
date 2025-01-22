@@ -39,6 +39,22 @@ export class Draw {
     }
   }
 
+  drawAlternatingHLine(y: number, startX: number, endX: number) {
+    for (let x = startX; x < endX + 1; x++) {
+      if ((x & 0b1) == (startX & 0b1)) {
+        this.bits[y]![x] = true;
+      }
+    }
+  }
+
+  drawAlternatingLLine(x: number, startY: number, endY: number) {
+    for (let y = startY; y < endY + 1; y++) {
+      if ((y & 0b1) == (startY & 0b1)) {
+        this.bits[y]![x] = true;
+      }
+    }
+  }
+
   drawSquare(value: boolean, topLeft: { x: number; y: number }, size: number) {
     for (let i = 0; i < size; i++) {
       this.bits[topLeft.y + i]!.fill(value, topLeft.x, topLeft.x + size);
