@@ -62,21 +62,4 @@ export default class QR extends Draw {
       }
     }
   }
-
-  drawVLine(
-    value: boolean,
-    x: number,
-    startY: number | null,
-    endY: number | null,
-  ) {
-    for (let y = startY ?? 0; y < (endY ?? this.bits.length - 1) + 1; y++) {
-      this.bits[y]![x] = value;
-    }
-  }
-
-  drawSquare(value: boolean, topLeft: { x: number; y: number }, size: number) {
-    for (let i = 0; i < size; i++) {
-      this.bits[topLeft.y + i]!.fill(value, topLeft.x, topLeft.x + size);
-    }
-  }
 }
