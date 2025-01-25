@@ -24,6 +24,7 @@ import QRVersion from "./lib";
 import { Input } from "@/components/ui/input";
 
 export type HistoryQrCode = {
+  content: string;
   version: string;
   qrVersion: number;
   margin: number;
@@ -31,6 +32,7 @@ export type HistoryQrCode = {
 
 export default function HistoryPage() {
   const [qr, setQr] = useState({
+    content: "",
     version: "main",
     qrVersion: 1,
     margin: 0,
@@ -46,6 +48,7 @@ export default function HistoryPage() {
 
   function onSubmit(values: z.infer<typeof historySchema>) {
     setQr({
+      content: values.content,
       version: values.version,
       qrVersion: values.qrVersion,
       margin: values.margin,
@@ -83,6 +86,19 @@ export default function HistoryPage() {
                       <SelectItem value="v0.1">Main Bullseye only</SelectItem>
                     </SelectContent>
                   </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="content"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Content</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

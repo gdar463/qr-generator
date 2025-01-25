@@ -11,6 +11,13 @@ export default function QRVersion({ qr }: { qr: HistoryQrCode }) {
     case "v0.1":
       return <QRCode_V0_1_FIXED_ALIGNMENT size={256} />;
     default:
-      return <QRCode imgSize={256} version={qr.qrVersion} margin={qr.margin} />;
+      return (
+        <QRCode
+          content={qr.content}
+          imgSize={256}
+          version={qr.qrVersion}
+          margin={qr.margin}
+        />
+      );
   }
 }

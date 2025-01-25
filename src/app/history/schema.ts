@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const historySchema = z.object({
+  content: z.string().nonempty(),
   version: z.enum(["main", "fixed_array", "v0.1"]).default("main"),
   qrVersion: z.coerce
     .number({ message: "Only numbers allowed" })
