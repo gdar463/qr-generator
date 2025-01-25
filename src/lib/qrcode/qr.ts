@@ -5,14 +5,16 @@ export default class QR extends Draw {
   version: number;
   margin: number;
   size: number;
-  bits: boolean[][];
+  data: Uint8Array;
+  imgBits: boolean[][];
 
   constructor(version: number, margin: number) {
     super();
     this.version = version;
     this.margin = margin;
     this.size = 4 * (version ?? 1) + 17 + (margin ?? 0) * 2;
-    this.bits = Array.from({ length: this.size + 1 }, (): boolean[] =>
+    this.data = new Uint8Array();
+    this.imgBits = Array.from({ length: this.size + 1 }, (): boolean[] =>
       Array<boolean>(this.size + 1).fill(false),
     );
   }
@@ -38,7 +40,7 @@ export default class QR extends Draw {
             ? { x: this.size - margin - 7, y: margin }
             : { x: margin, y: this.size - margin - 7 };
       for (let j = 0; j < 7; j += 6) {
-        this.bits[start.y + j]!.fill(true, start.x, start.x + 7);
+        this.imgBits[start.y + j]!.fill(true, start.x, start.x + 7);
         this.drawVLine(true, start.x + j, start.y + 1, start.y + 6);
       }
       this.drawSquare(true, { x: start.x + 2, y: start.y + 2 }, 3);
@@ -55,10 +57,10 @@ export default class QR extends Draw {
         !(x < margin + 8 && y + 5 > this.size - margin - 8)
       ) {
         for (let j = 0; j < 5; j += 4) {
-          this.bits[y + j]!.fill(true, x, x + 5);
+          this.imgBits[y + j]!.fill(true, x, x + 5);
           this.drawVLine(true, x + j, y + 1, y + 4);
         }
-        this.bits[y + 2]![x + 2] = true;
+        this.imgBits[y + 2]![x + 2] = true;
       }
     }
   }
