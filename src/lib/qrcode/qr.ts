@@ -25,6 +25,7 @@ export default class QR extends Draw {
     if (this.version >= 2) {
       this.drawAlignmentPattern();
     }
+    this.drawTimingLines();
     return { viewport, bg };
   }
 
@@ -61,5 +62,18 @@ export default class QR extends Draw {
         this.bits[y + 2]![x + 2] = true;
       }
     }
+  }
+
+  drawTimingLines() {
+    this.drawAlternatingHLine(
+      this.margin + 6,
+      this.margin + 8,
+      this.size - this.margin - 8,
+    );
+    this.drawAlternatingVLine(
+      this.margin + 6,
+      this.margin + 8,
+      this.size - this.margin - 8,
+    );
   }
 }
