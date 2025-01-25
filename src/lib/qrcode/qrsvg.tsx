@@ -2,12 +2,13 @@
 import QR from "./qr";
 
 interface QRProps {
+  content: string;
   imgSize?: number;
   version?: number;
   margin?: number;
 }
 
-export default function QRCode({ imgSize, version, margin }: QRProps) {
+export default function QRCode({ content, imgSize, version, margin }: QRProps) {
   const qr = new QR(version ?? 1, margin ?? 0);
   const { viewport, bg } = qr.makeBaseForm();
   const dPath = qr.drawBits();
