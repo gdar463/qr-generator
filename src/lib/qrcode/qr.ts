@@ -4,7 +4,6 @@ import { getCoords } from "./util";
 export default class QR extends Draw {
   version: number;
   margin: number;
-  // 0-indexed
   size: number;
   bits: boolean[][];
 
@@ -12,14 +11,14 @@ export default class QR extends Draw {
     super();
     this.version = version;
     this.margin = margin;
-    this.size = 4 * (version ?? 1) + 17 + (margin ?? 0) * 2 - 1;
+    this.size = 4 * (version ?? 1) + 17 + (margin ?? 0) * 2;
     this.bits = Array.from({ length: this.size + 1 }, (): boolean[] =>
       Array<boolean>(this.size + 1).fill(false),
     );
   }
 
   makeBaseForm() {
-    const viewport = `0 0 ${this.size + 1} ${this.size + 1}`;
+    const viewport = `0 0 ${this.size} ${this.size}`;
     const bg = `M0,0h${this.size}v${this.size}h-${this.size}z`;
     this.drawLocatorEyes();
     if (this.version >= 2) {
