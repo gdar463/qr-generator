@@ -47,7 +47,7 @@ export class Draw {
     }
   }
 
-  drawAlternatingLLine(x: number, startY: number, endY: number) {
+  drawAlternatingVLine(x: number, startY: number, endY: number) {
     for (let y = startY; y < endY + 1; y++) {
       if ((y & 0b1) == (startY & 0b1)) {
         this.bits[y]![x] = true;
