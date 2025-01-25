@@ -10,7 +10,7 @@ interface QRProps {
 
 export default function QRCode({ content, imgSize, version, margin }: QRProps) {
   const qr = new QR(content, version ?? 1, margin ?? 0);
-  const { viewport, bg } = qr.makeBaseForm();
+  const { viewport, bg } = qr.init();
   const dPath = qr.drawBits();
 
   return (

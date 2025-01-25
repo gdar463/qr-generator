@@ -19,4 +19,8 @@ export default class QR extends Image {
       Array<boolean>(this.size + 1).fill(false),
     );
   }
+
+  init() {
+    return this.makeBaseForm();
+  }
 }
