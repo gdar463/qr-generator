@@ -1,4 +1,4 @@
-import { Draw } from "./draw";
+import Draw from "./draw";
 import { getCoords } from "./util";
 
 export default class Image extends Draw {

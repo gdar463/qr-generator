@@ -1,4 +1,4 @@
-export class Draw {
+export default class Draw {
   imgBits: boolean[][] = [];
 
   drawBits() {
