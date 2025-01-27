@@ -5,7 +5,6 @@ export default class Image extends Draw {
   version: number = 1;
   margin: number = 0;
   size: number = 1;
-  imgBits: boolean[][] = [];
 
   makeBaseForm() {
     const viewport = `0 0 ${this.size} ${this.size}`;

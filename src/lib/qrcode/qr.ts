@@ -1,20 +1,10 @@
+import { ContentTypeEnum, Data } from "./data";
 import Image from "./image";
 
-enum ContentTypeEnum {
-  NUMERIC,
-  ALPHANUMERIC,
-  BYTE,
-  KANJI,
-}
-
 export default class QR extends Image {
-  version: number;
-  margin: number;
-  size: number;
   content: string;
   contentType: ContentTypeEnum;
   data: Uint8Array;
-  imgBits: boolean[][];
 
   constructor(content: string, version: number, margin: number) {
     super();
@@ -30,6 +20,16 @@ export default class QR extends Image {
   }
 
   init() {
+    switch (this.contentType) {
+      case ContentTypeEnum.NUMERIC:
+        this.data = Data.numericEncoding(this.content);
+      case ContentTypeEnum.ALPHANUMERIC:
+        this.data = Data.alphanumericEncoding(this.content);
+      case ContentTypeEnum.KANJI:
+        this.data = Data.kanjiEncoding(this.content);
+      default:
+        this.data = Data.byteEncoding(this.content);
+    }
     return this.makeBaseForm();
   }
 
