@@ -4,7 +4,7 @@ import Image from "./image";
 export default class QR extends Image {
   content: string;
   contentType: ContentTypeEnum;
-  data: Uint8Array;
+  data: boolean[];
 
   constructor(content: string, version: number, margin: number) {
     super();
@@ -13,7 +13,7 @@ export default class QR extends Image {
     this.size = 4 * (version ?? 1) + 17 + (margin ?? 0) * 2;
     this.content = content;
     this.contentType = this.detectContentType();
-    this.data = new Uint8Array();
+    this.data = [];
     this.imgBits = Array.from({ length: this.size + 1 }, (): boolean[] =>
       Array<boolean>(this.size + 1).fill(false),
     );
