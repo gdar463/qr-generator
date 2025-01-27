@@ -6,7 +6,7 @@ export enum ContentTypeEnum {
 }
 
 export class Data {
-  static data: Uint8Array = new Uint8Array();
+  static data: boolean[] = [];
 
   static numericEncoding(content: string) {
     return this.data;
