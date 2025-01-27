@@ -8,13 +8,9 @@ enum ContentTypeEnum {
 }
 
 export default class QR extends Image {
-  version: number;
-  margin: number;
-  size: number;
   content: string;
   contentType: ContentTypeEnum;
   data: Uint8Array;
-  imgBits: boolean[][];
 
   constructor(content: string, version: number, margin: number) {
     super();
