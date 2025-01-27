@@ -6,21 +6,23 @@ export enum ContentTypeEnum {
 }
 
 export class Data {
-  static data: boolean[] = [];
-
   static numericEncoding(content: string) {
-    return this.data;
+    const data: boolean[] = [];
+    return data;
   }
 
   static alphanumericEncoding(content: string) {
-    return this.data;
+    const data: boolean[] = [];
+    return data;
   }
 
   static kanjiEncoding(content: string) {
-    return this.data;
+    const data: boolean[] = [];
+    return data;
   }
 
   static byteEncoding(content: string) {
-    return this.data;
+    const data: boolean[] = [];
+    return data;
   }
 }
