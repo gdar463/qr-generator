@@ -41,6 +41,7 @@ export default class QR extends Image {
     } else if (
       // This regex was copied from npmjs package "qrcode"
       // Repo: https://github.com/soldair/node-qrcode
+      // Commit: 3848ed2c17de5bcdead487417dbf14c5dd017f8d
       // License: MIT License
       // (license text can be found on the github repo)
       new RegExp(
