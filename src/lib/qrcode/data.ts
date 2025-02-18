@@ -14,8 +14,8 @@ export class Data {
       groups[i / 3] = parseInt(content.slice(i, i + 3)).toString(2);
     }
     groups.forEach((num) => {
-      for (let i = 0; i < num.length; i++) {
-        data.push(num[i] == "1" ? true : false);
+      for (const i of num) {
+        data.push(i == "1" ? true : false);
       }
     });
     return data;
