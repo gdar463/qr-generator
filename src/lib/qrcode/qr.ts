@@ -23,12 +23,16 @@ export default class QR extends Image {
     switch (this.contentType) {
       case ContentTypeEnum.NUMERIC:
         this.data = Data.numericEncoding(this.content);
+        break;
       case ContentTypeEnum.ALPHANUMERIC:
         this.data = Data.alphanumericEncoding(this.content);
+        break;
       case ContentTypeEnum.KANJI:
         this.data = Data.kanjiEncoding(this.content);
+        break;
       default:
         this.data = Data.byteEncoding(this.content);
+        break;
     }
     return this.makeBaseForm();
   }
